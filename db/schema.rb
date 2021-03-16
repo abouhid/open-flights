@@ -12,13 +12,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_210_315_223_758) do
+ActiveRecord::Schema.define(version: 20_210_316_235_237) do
   create_table 'airlines', force: :cascade do |t|
     t.string 'name'
     t.string 'image_url'
     t.string 'slug'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.integer 'average_score'
   end
 
   create_table 'reviews', force: :cascade do |t|

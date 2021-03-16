@@ -10,7 +10,6 @@ module Api
         render json: AirlineSerializer.new(airlines, options).serialized_json
       end
 
-      
       def show
         airline = Airline.find_by(slug: params[:slug])
 
@@ -23,7 +22,7 @@ module Api
         if airline.save
           render json: AirlineSerializer.new(airline).serialized_json
         else
-          render json: { error: airline}, status: 422
+          render json: { error: airline }, status: 422
         end
       end
 
@@ -50,7 +49,6 @@ module Api
       private
 
       def airline_params
-        
         params.require(:airline).permit(:name, :image_url)
       end
 
