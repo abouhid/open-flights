@@ -1,9 +1,72 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Header from "./Header";
+import styled from "styled-components";
+import ReviewForm from "./ReviewForm";
 
-const Airline = () => {
-  let { slug } = useParams();
-  return <div>This is the let {slug} Page</div>;
+const Wrapper = styled.div`
+  margin-left: auto;
+  margin-right: auto;
+`;
+
+const Column = styled.div`
+  background: #fff;
+  max-width: 50%;
+  width: 50%;
+  float: left;
+  height: 100vh;
+  overflow-x: scroll;
+  overflow-y: scroll;
+  overflow: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  &:last-child {
+    background: black;
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+  }
+`;
+
+const Main = styled.div`
+  padding-left: 60px;
+`;
+
+const Airline = (props) => {
+  const [airline, setAirline] = useState({});
+  const [review, setReview] = useState({});
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    const { slug } = props.match.params;
+    console.log(props, "props");
+    const url = `/api/v1/airlines/${slug}`;
+    axios
+      .get(url)
+      .then((resp) => {
+        setAirline(resp.data);
+        setLoaded(true);
+      })
+      .catch((resp) => console.log(resp));
+  }, []);
+
+  return (
+    <Wrapper>
+      <Column>
+        <Main>
+          {loaded && (
+            <Header
+              attributes={airline.data.attributes}
+              reviews={airline.included}
+            />
+          )}
+          <div className="reviews"></div>
+        </Main>
+      </Column>
+      <Column>
+        <ReviewForm />
+      </Column>
+    </Wrapper>
+  );
 };
 
 export default Airline;
