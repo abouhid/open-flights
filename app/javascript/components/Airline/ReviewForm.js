@@ -135,13 +135,13 @@ const ReviewForm = (props) => {
   });
 
   return (
-    <div className="wrapper">
+    <ReviewWrapper>
       <form onSubmit={props.handleSubmit}>
-        <div>
+        <ReviewHeadline>
           Have an experience with {props.attributes.name}? Leave here your
           comments!
-        </div>
-        <div className="field">
+        </ReviewHeadline>
+        <Field>
           <input
             onChange={props.handleChange}
             value={props.review.title}
@@ -149,8 +149,8 @@ const ReviewForm = (props) => {
             name="title"
             placeholder="Review Title"
           />
-        </div>
-        <div className="field">
+        </Field>
+        <Field>
           <input
             onChange={props.handleChange}
             value={props.review.desription}
@@ -158,16 +158,16 @@ const ReviewForm = (props) => {
             name="description"
             placeholder="Review Description"
           />
-        </div>
-        <div className="field">
+        </Field>
+        <Field>
           <RatingContainer>
-            <div className="rating-title-text">Rate this Airline</div>
+            <RatingBoxTitle>Rate this Airline</RatingBoxTitle>
             <RatingBox>{ratingOptions}</RatingBox>
           </RatingContainer>
-        </div>
-        <button type="submit">Submit</button>
+        </Field>
+        <SubmitBtn type="submit">Submit</SubmitBtn>
       </form>
-    </div>
+    </ReviewWrapper>
   );
 };
 
