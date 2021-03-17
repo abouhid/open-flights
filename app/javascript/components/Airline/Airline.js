@@ -74,6 +74,11 @@ const Airline = (props) => {
       .catch((resp) => console.error(resp));
   };
 
+  const setRating = (score, e) => {
+    e.preventDefault();
+    setReview({ ...review, score });
+  };
+
   return (
     <Wrapper>
       <Column>
@@ -92,6 +97,7 @@ const Airline = (props) => {
           <ReviewForm
             handleSubmit={handleSubmit}
             handleChange={handleChange}
+            setRating={setRating}
             attributes={airline.data.attributes}
             review={review}
           />

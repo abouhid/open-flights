@@ -122,13 +122,14 @@ const ReviewForm = (props) => {
     return (
       <React.Fragment key={score}>
         <input
+          checked={props.review.score == score}
           type="radio"
           value={score}
           name="rating"
           onChange={() => console.log("selected:", score)}
           id={`rating-${score}`}
         />
-        <label></label>
+        <label onClick={props.setRating.bind(this, score)}></label>
       </React.Fragment>
     );
   });
