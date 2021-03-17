@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20_210_316_235_237) do
     t.string 'slug'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
-    t.integer 'average_score'
+    t.integer 'average_score', default: 0
   end
 
   create_table 'reviews', force: :cascade do |t|
