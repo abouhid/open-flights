@@ -33,12 +33,11 @@ const Main = styled.div`
 
 const Airline = (props) => {
   const [airline, setAirline] = useState({});
-  const [review, setReview] = useState({});
+  const [review, setReview] = useState({ title: "", description: "" });
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     const { slug } = props.match.params;
-    console.log(props, "props");
     const url = `/api/v1/airlines/${slug}`;
     axios
       .get(url)
@@ -48,6 +47,32 @@ const Airline = (props) => {
       })
       .catch((resp) => console.log(resp));
   }, []);
+
+  const handleChange = (e) => {
+    e.preventDefault();
+
+    setReview({
+      ...review,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const csrfToken = document.querySelector("[name=csrf-token]").content;
+    axios.defaults.headers.common["X-CSRF-TOKEN"] = csrfToken;
+
+    const airline_id = airline.data.id;
+    axios
+      .post("/api/v1/reviews", { review, airline_id })
+      .then((resp) => {
+        const included = [...airline.included, resp.data];
+        setAirline({ ...airline, included });
+        setReview({ title: "", description: "", score: 0 });
+      })
+      .catch((resp) => console.error(resp));
+  };
 
   return (
     <Wrapper>
@@ -63,7 +88,14 @@ const Airline = (props) => {
         </Main>
       </Column>
       <Column>
-        <ReviewForm />
+        {loaded && (
+          <ReviewForm
+            handleSubmit={handleSubmit}
+            handleChange={handleChange}
+            attributes={airline.data.attributes}
+            review={review}
+          />
+        )}
       </Column>
     </Wrapper>
   );
