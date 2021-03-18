@@ -1,6 +1,11 @@
 {
   "name": "open-flights",
   "private": true,
+  "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "start": "node ./bin/www"
+  },
   "dependencies": {
     "@babel/preset-react": "^7.12.13",
     "@fortawesome/fontawesome-free": "^5.15.3",

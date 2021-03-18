@@ -36,10 +36,6 @@ Open `http://localhost:3000/` in your browser.
 
 This project has been deployed on Heroku using the `Heroku CLI` and a continuous deployment pipeline has been setup between Heroku and GitHub.
 
-## Instructions
-
-Once inside the application, you have to create an account since you are a new user so as to be able to enjoy all that the web app has to offer. Once you've created the application, you can use the navigation links to navigate anywhere within the page.
-
 ## Authors
 
 👤 **Alexandre Bouhid**
