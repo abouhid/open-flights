@@ -9,7 +9,7 @@ class Airline < ApplicationRecord
   # Ex: 'United Airlines'.parameterize => 'united-airlines'
   before_create :slugify
 
-  def slugify 
+  def slugify
     self.slug = name.parameterize
   end
 

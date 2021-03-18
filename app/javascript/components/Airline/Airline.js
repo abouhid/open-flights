@@ -63,14 +63,17 @@ const Airline = (props) => {
 
     const csrfToken = document.querySelector("[name=csrf-token]").content;
     axios.defaults.headers.common["X-CSRF-TOKEN"] = csrfToken;
-
+    if (review.score == null) {
+      setReview({ ...review, score: 0 });
+    }
     const airline_id = airline.data.id;
     axios
       .post("/api/v1/reviews", { review, airline_id })
       .then((resp) => {
-        const included = [...airline.included, resp.data];
+        const included = [...airline.included, resp.data.data];
         setAirline({ ...airline, included });
         setReview({ title: "", description: "", score: 0 });
+        window.location.reload();
       })
       .catch((resp) => console.error(resp));
   };
@@ -86,7 +89,6 @@ const Airline = (props) => {
       return <Review key={index} attributes={item.attributes} />;
     });
   }
-  console.log(reviews);
   return (
     <Wrapper>
       <Column>

@@ -6,7 +6,9 @@ const Rating = (props) => {
 
   return (
     <span className="star-wrapper">
-      <span className="stars" style={{ width: score + "%" }}></span>
+      <span className="stars" style={{ width: score + "%" }}>
+        {score}
+      </span>
     </span>
   );
 };
